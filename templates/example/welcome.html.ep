@@ -1,7 +1,77 @@
 % layout 'default';
-% title 'Welcome';
-<h2><%= $msg %></h2>
-This page was generated from the template "templates/example/welcome.html.ep"
-and the layout "templates/layouts/default.html.ep",
-<a href="<%== url_for %>">click here</a> to reload the page or
-<a href="/index.html">here</a> to move forward to a static page.
+% title '人名検索';
+<div id="wrapper">
+
+    <header id="header" class="">
+
+        <h1 id="siteTitle">人名検索</h1>
+
+    <!-- /#header --></header>
+
+    <div id="contents" class="">
+
+        <div id="inputName">
+            <form method="post" action="">
+
+            <div id="lastName">
+                <p id="lastNameTitle">姓</p>
+                <p><input id="lastNameInput" type="text" name="lastName" value="くさかべ"></p>
+            </div>
+
+            <div id="firstName">
+                <p id="firstNameTitle">名</p>
+                <p><input id="firstNameInput" type="text" name="firstName" value="ゆきお"></p>
+            </div>
+
+            <div class="clearfix"></div>
+
+        <!-- /#inputName --></div>
+
+        <div id="searchSubmit">
+
+            <p><input id="searchSubmitText" type="submit" value="実行"></p>
+
+        </form>
+
+        <!-- /#searchSubmit --></div>
+
+        <div id="outputName">
+            <div id="lastNameOutput">
+                <div id="lastNameOutputTitle">
+                    <p>検索結果(姓)</p>
+                </div>
+                <div id="lastNameOutputInput">
+                    <ul>
+                        <li>くさかべ 日壁</li>
+                        <li>くさかべ 日下邊</li>
+                        <li>くさかべ 日下部</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="firstNameOutput">
+                <div id="firstNameOutputTitle">
+                    <p>検索結果(名)</p>
+                </div>
+                <div id="firstNameOutputInput">
+                    <ul>
+                        <li>ゆきお 雪雄</li>
+                        <li>ゆきお 之男</li>
+                        <li>ゆきお 幸夫</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+        <!-- /#outputName --></div>
+
+    <!-- /#contents --></div>
+
+    <footer id="footer" class="">
+
+        <p id="footerTitle">人名検索 PersonSearch in Mojolicious</p>
+
+    <!-- /#footer> --></footer>
+
+<!-- /#wrapper --></div>
