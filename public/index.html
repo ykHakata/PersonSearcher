@@ -1,11 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Welcome to the Mojolicious real-time web framework!</title>
-  </head>
-  <body>
-    <h2>Welcome to the Mojolicious real-time web framework!</h2>
-    This is the static document "public/index.html",
-    <a href="/">click here</a> to get back to the start.
-  </body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>人名検索</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<div>
+    <p>人名検索</p>
+</div>
+
+<form method="post" action="">
+
+<div>
+    <div>
+        <p>姓</p>
+        <p><input type="text" name="lastName" value="くさかべ"></p>
+    </div>
+
+    <div>
+        <p>名</p>
+        <p><input type="text" name="firstName" value="ゆきお"></p>
+    </div>
+</div>
+
+<div>
+    <p><input type="submit" value="実行"></p>
+</div>
+
+</form>
+
+<div>
+    <div>
+        <p>検索結果(姓)</p>
+    </div>
+    <div>
+        <ul>
+            <li>くさかべ 日壁</li>
+            <li>くさかべ 日下邊</li>
+            <li>くさかべ 日下部</li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <div>
+        <p>検索結果(名)</p>
+    </div>
+    <div>
+        <ul>
+            <li>ゆきお 雪雄</li>
+            <li>ゆきお 之男</li>
+            <li>ゆきお 幸夫</li>
+        </ul>
+    </div>
+</div>
+
+</body>
 </html>
