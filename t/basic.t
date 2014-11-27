@@ -4,7 +4,6 @@ use Test::More;
 use Test::Mojo;
 
 my $t = Test::Mojo->new('PersonSearcher');
-# $t->get_ok('/')->status_is(200)->content_like(qr/Mojolicious/i);
 
 # 人名検索画面テスト(開発用)
 $t->get_ok('/index.html')->status_is(200);
@@ -49,6 +48,7 @@ for my $import_css_content (@{$import_css_contents}) {
 }
 
 # テンプレートにindex.htmlファイルを移植
+# 入力フォームを有効、初期アクセスは値なし
 $t->get_ok('/')->status_is(200);
 
 # テスト用文字定義
@@ -61,10 +61,25 @@ push @{$index_temp_contents},
     '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
     # フッターの文字を変更
     'PersonSearch in Mojolicious',
+    # 入力フォームのname
+    q{name="lastName"}, q{name="firstName"},
 ;
 
+# 入力フォームや検索結果に値があってはいけない
+my @unlike_list = (
+    'くさかべ', 'ゆきお',
+    'くさかべ 日壁', 'ゆきお 雪雄',
+    'くさかべ 日下邊', 'ゆきお 之男',
+    'くさかべ 日下部', 'ゆきお 幸夫',
+);
+
 for my $index_temp_content (@{$index_temp_contents}) {
-    $t->content_like(qr/$index_temp_content/i);
+    if (grep { $_ eq $index_temp_content } @unlike_list) {
+        $t->content_unlike(qr/$index_temp_content/i);
+    }
+    else {
+        $t->content_like(qr/$index_temp_content/i);
+    }
 }
 
 # スタイルシート読み込み確認
@@ -72,6 +87,56 @@ $t->get_ok($router_css)->status_is(200);
 
 for my $import_css_content (@{$import_css_contents}) {
     $t->content_like(qr/$import_css_content/i);
+}
+
+# 入力フォームからの検索実行
+$t->get_ok('/?lastName=くさかべ&firstName=ゆきお')->status_is(200);
+
+# 値の出力確認
+for my $index_temp_content (@{$index_temp_contents}) {
+    $t->content_like(qr/$index_temp_content/i);
+}
+
+# 入力フォームからの検索実行(lastNameのみ)
+$t->get_ok('/?lastName=くさかべ&firstName=')->status_is(200);
+
+# 検索結果にfirstNameの値があってはいけない
+my @firstName_list = (
+    'ゆきお',
+    'ゆきお 雪雄',
+    'ゆきお 之男',
+    'ゆきお 幸夫',
+);
+
+# 値の出力確認
+for my $index_temp_content (@{$index_temp_contents}) {
+    if (grep { $_ eq $index_temp_content } @firstName_list) {
+        $t->content_unlike(qr/$index_temp_content/i);
+    }
+    else {
+        $t->content_like(qr/$index_temp_content/i);
+    }
+}
+
+# 入力フォームからの検索実行(firstNameのみ)
+$t->get_ok('/?lastName=&firstName=ゆきお')->status_is(200);
+
+# 検索結果にlastNameの値があってはいけない
+my @lastName_list = (
+    'くさかべ',
+    'くさかべ 日壁',
+    'くさかべ 日下邊',
+    'くさかべ 日下部',
+);
+
+# 値の出力確認
+for my $index_temp_content (@{$index_temp_contents}) {
+    if (grep { $_ eq $index_temp_content } @lastName_list) {
+        $t->content_unlike(qr/$index_temp_content/i);
+    }
+    else {
+        $t->content_like(qr/$index_temp_content/i);
+    }
 }
 
 done_testing();

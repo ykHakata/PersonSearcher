@@ -11,16 +11,16 @@
     <div id="contents" class="">
 
         <div id="inputName">
-            <form method="post" action="">
+            <form method="get" action="/">
 
             <div id="lastName">
                 <p id="lastNameTitle">姓</p>
-                <p><input id="lastNameInput" type="text" name="lastName" value="くさかべ"></p>
+                <p><input id="lastNameInput" type="text" name="lastName" value=""></p>
             </div>
 
             <div id="firstName">
                 <p id="firstNameTitle">名</p>
-                <p><input id="firstNameInput" type="text" name="firstName" value="ゆきお"></p>
+                <p><input id="firstNameInput" type="text" name="firstName" value=""></p>
             </div>
 
             <div class="clearfix"></div>
@@ -42,9 +42,9 @@
                 </div>
                 <div id="lastNameOutputInput">
                     <ul>
-                        <li>くさかべ 日壁</li>
-                        <li>くさかべ 日下邊</li>
-                        <li>くさかべ 日下部</li>
+                        <li><%= $last_names->[0] %></li>
+                        <li><%= $last_names->[1] %></li>
+                        <li><%= $last_names->[2] %></li>
                     </ul>
                 </div>
             </div>
@@ -55,9 +55,9 @@
                 </div>
                 <div id="firstNameOutputInput">
                     <ul>
-                        <li>ゆきお 雪雄</li>
-                        <li>ゆきお 之男</li>
-                        <li>ゆきお 幸夫</li>
+                        <li><%= $first_names->[0] %></li>
+                        <li><%= $first_names->[1] %></li>
+                        <li><%= $first_names->[2] %></li>
                     </ul>
                 </div>
             </div>
