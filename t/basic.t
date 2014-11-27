@@ -9,7 +9,7 @@ my $t = Test::Mojo->new('PersonSearcher');
 # 人名検索画面テスト(開発用)
 $t->get_ok('/index.html')->status_is(200);
 
-my $router_css = '/css/import.css';
+my $router_css = '/import.css';
 
 my $index_html_contents = [
     '<title>人名検索</title>',
