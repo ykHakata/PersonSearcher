@@ -39,7 +39,12 @@ sub search {
     $cond->{search_value}->{last_name}  = $params->{lastName};
     $cond->{search_value}->{first_name} = $params->{firstName};
 
-    $cond->{stash_value} = get_name_for_file( $cond->{search_value} );
+    my $home = $self->app->home->to_string;
+
+    my $file_path = $home . '/lib/PersonSearcher/Model/ime-import.txt';
+
+    $cond->{stash_value}
+        = get_name_for_file( $cond->{search_value}, $file_path );
 
     $self->stash( $cond->{stash_value} );
 

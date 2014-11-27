@@ -5,24 +5,20 @@ use warnings;
 use utf8;
 use open OUT => qw/:utf8 :std/;
 use English;
-use FindBin;
 use Text::CSV;
 use Exporter 'import';
 our @EXPORT_OK = qw{get_name_for_file};
 
 # use Smart::Comments;
 
-use IO::File;
 sub get_name_for_file {
-    my $cond = shift;
+    my $cond      = shift;
+    my $file_path = shift;
 
     my $res = +{
         last_names  => [],
         first_names => [],
     };
-
-    my $file_path
-        = $FindBin::Bin . '/../../lib/PersonSearcher/Model/ime-import.txt';
 
     my $csv = Text::CSV->new(+{
         binary   => 1,
@@ -32,7 +28,7 @@ sub get_name_for_file {
     open my $ime_file, '<:encoding(utf8)', $file_path
         or die "no file $OS_ERROR";
 
-    while (my $row = $csv->getline($ime_file)) {
+    while ( my $row = $csv->getline($ime_file) ) {
 
         if ( $cond->{last_name} eq $row->[0] && $row->[2] eq '姓' ) {
 
