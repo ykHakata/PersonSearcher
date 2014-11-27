@@ -497,6 +497,23 @@ DISTRIBUTIONS
       Scalar::Util 1.18
       Test::More 0.42
       perl 5.00503
+  Readonly-2.00
+    pathname: S/SA/SANKO/Readonly-2.00.tar.gz
+    provides:
+      Readonly 2.00
+    requirements:
+      CPAN::Meta 0
+      CPAN::Meta::Prereqs 0
+      ExtUtils::CBuilder 0
+      Module::Build 0.38
+      perl v5.6.0
+  Readonly-XS-1.05
+    pathname: R/RO/ROODE/Readonly-XS-1.05.tar.gz
+    provides:
+      Readonly::XS 1.05
+    requirements:
+      ExtUtils::MakeMaker 0
+      Readonly 1.02
   Smart-Comments-1.000005
     pathname: D/DC/DCONWAY/Smart-Comments-1.000005.tar.gz
     provides:
