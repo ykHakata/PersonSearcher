@@ -1,0 +1,237 @@
+@charset "utf-8";
+
+/*import.css*/
+/*今回はこのファイルに連続で記述する*/
+/* Layouts
+========================================== */
+
+/* contents
+========================================== */
+
+/*reset.css*/
+/* =======================================
+    Browser Reset CSS
+    Last Up Date 2014/11/08
+========================================== */
+
+body,div,dl,dt,dd,ul,ol,li,
+h1,h2,h3,h4,h5,h6,
+pre,code,form,fieldset,legend,
+p,blockquote,table,th,td {margin: 0; padding: 0;}
+
+html,body {background: #FFF; color: #000;}
+
+body {font:13px/1 "メイリオ","Meiryo","ＭＳ Ｐゴシック","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3",sans-serif;}
+* html body {font-size: small;}
+*:first-child+html body {font-size: small;}
+
+img {border: 0; vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6 {clear: both; font-size: 100%; font-weight: normal;}
+
+ul,dl,ol {text-indent: 0;}
+li {list-style: none;}
+
+address,caption,cite,code,dfn,em,strong,th,var {font-style: normal; font-weight: normal;}
+
+sup {vertical-align: text-top;}
+sub {vertical-align: text-bottom;}
+
+input,textarea,select {font-family: inherit; font-size: inherit; font-weight:inherit;}
+* html input,* html textarea,* html select {font-size: 100%;}
+*:first-child+html+input,*:first-child html+textarea,*:first-child+html select {font-size: 100%;}
+
+table {border-collapse: collapse; border-spacing: 0; font-size: inherit;}
+th,td {text-align: left; vertical-align: top;}
+caption {text-align: left;}
+
+pre,code,kbd,samp,tt {font-family: monospace;}
+* html pre,* html code,* html kbd,* html samp,* html tt {font-size: 100%; line-height: 100%;}
+*:first-child+html pre,*:first-child html+code,*:first-child html+kbd,*:first-child+html+samp,*:first-child+html tt {font-size: 108%; line-height: 100%;}
+
+input,select,textarea {font-size: 100%; font-family: Verdana, Helvetica, sans-serif;}
+
+/*structure.css*/
+/* =======================================
+    structure CSS
+========================================== */
+
+html {
+
+}
+
+body {
+    background-color : white;
+    border : 1px solid darkgreen;
+    margin : 10px;
+}
+
+#wrapper {
+    margin : 5px;
+}
+
+/*header.css*/
+/* =======================================
+    header CSS
+ ========================================= */
+#header {
+    padding: 10px;
+    border: 1px solid dimgray;
+}
+
+#header #siteTitle {
+    font-size: xx-large;
+    text-align: center;
+}
+
+/*contents.css*/
+/* =======================================
+    contents CSS
+========================================== */
+#contents {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/*検索する名前の入力*/
+#contents #inputName {
+    margin-bottom: 10px;
+}
+
+/*入力の姓*/
+#contents #inputName #lastName {
+    float: left;
+}
+
+/*入力の名*/
+#contents #inputName #firstName {
+    float: left;
+}
+
+/*入力の姓 名 共通*/
+#contents #inputName #lastName,
+#contents #inputName #firstName {
+    width: 50%;
+    text-align: center;
+}
+
+/*入力の姓、名 タイトル 共通*/
+#contents #inputName #lastName #lastNameTitle,
+#contents #inputName #firstName #firstNameTitle {
+    font-size: large;
+    padding-bottom: 10px;
+}
+
+/*入力の姓、名 入力フォーム共通*/
+#contents #inputName #lastName #lastNameInput,
+#contents #inputName #firstName #firstNameInput {
+    font-size: x-large;
+    width: 96%;
+    text-align: center;
+}
+
+#contents #inputName .clearfix {
+    clear: both;
+}
+
+/*検索実行ボタン*/
+#contents #searchSubmit {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#contents #searchSubmit #searchSubmitText {
+    background-color : lightgrey;
+    font-size: xx-large;
+    width: 100%;
+}
+
+/*検索結果表示*/
+#contents #outputName {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/*検索結果の姓*/
+#contents #outputName #lastNameOutput {
+    float: left;
+}
+
+/*検索結果の名*/
+#contents #outputName #firstNameOutput {
+    float: left;
+}
+
+#contents #outputName .clearfix {
+    clear: both;
+}
+
+/*検索結果の姓 名 共通*/
+#contents #outputName #lastNameOutput,
+#contents #outputName #firstNameOutput {
+    width: 50%;
+    text-align: center;
+}
+
+/*検索結果の姓、名 タイトル 共通*/
+#contents #outputName #lastNameOutput #lastNameOutputTitle,
+#contents #outputName #firstNameOutput #firstNameOutputTitle {
+    font-size: large;
+    padding-bottom: 10px;
+}
+
+/*検索結果の姓、名 出力結果共通*/
+#contents #outputName #lastNameOutput #lastNameOutputInput,
+#contents #outputName #firstNameOutput #firstNameOutputInput {
+    font-size: x-large;
+    width: 98.5%;
+    text-align: center;
+    border: 1px solid dimgray;
+}
+
+/*検索結果の姓、名 出力結果共通 リスト*/
+#contents #outputName #lastNameOutput #lastNameOutputInput li,
+#contents #outputName #firstNameOutput #firstNameOutputInput li {
+    font-size: large;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/*footer.css*/
+/* =======================================
+    footer CSS
+========================================== */
+#footer {
+    padding: 10px;
+    border: 1px solid dimgray;
+}
+
+#footer #footerTitle {
+    font-size: large;
+    text-align: center;
+}
+
+/* -----.css*/
+/* =======================================
+    ----- CSS
+========================================== */
+/*開発で利用するスタイルシートのタグ*/
+/*color*/
+    /*black       #000000*/
+    /*dimgray     #696969*/
+    /*gray        #808080*/
+    /*darkgray    #a9a9a9*/
+    /*silver      #c0c0c0*/
+    /*lightgrey   #d3d3d3*/
+    /*gainsboro   #dcdcdc*/
+    /*whitesmoke  #f5f5f5*/
+    /*white       #ffffff*/
+
+/*font-size*/
+    /*xx-large 36*/
+    /*x-large  24*/
+    /*large    18*/
+    /*medium   14*/
+    /*small    13*/
+    /*x-small  12*/
+    /*xx-small 11*/
