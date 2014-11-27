@@ -184,4 +184,31 @@ for my $search_name (@{$search_name_list}) {
     }
 }
 
+# 漢字入力からの検索
+my $last_name_kanzi = URI::Escape::uri_escape_utf8(qq{日下部});
+my $first_name_kanzi = URI::Escape::uri_escape_utf8(qq{幸夫});
+
+# 入力フォームからの検索実行
+$t->get_ok("/?lastName=${last_name_kanzi}&firstName=${first_name_kanzi}")
+    ->status_is(200);
+
+# ime-import.txt の生データを定義
+my $search_name_kanzi_list = [
+    # 姓の該当データ
+    'くさかべ 日下部',
+    'くさべ 日下部',
+    'じつかべ 日下部',
+    'ひかべ 日下部',
+    'ひさかべ 日下部',
+    'ひしべ 日下部',
+    # 名の該当データ
+    'さちお 幸夫',
+    'ゆきお 幸夫',
+];
+
+# 検索結果の名前確認(漢字からの検索)
+for my $search_name_kanzi (@{$search_name_kanzi_list}) {
+    $t->content_like(qr/$search_name_kanzi/i);
+}
+
 done_testing();
