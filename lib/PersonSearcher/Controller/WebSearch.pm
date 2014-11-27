@@ -1,4 +1,5 @@
 package PersonSearcher::Controller::WebSearch;
+
 use Mojo::Base 'Mojolicious::Controller';
 use FormValidator::Lite;
     FormValidator::Lite->load_constraints(qw/Japanese/);
@@ -13,6 +14,7 @@ sub search {
         search_value => +{
             last_name  => [ SEARCH_ALL => '' ],
             first_name => [ SEARCH_ALL => '' ],
+            file_path  => '',
         },
         stash_value => +{
             last_names  => [],
@@ -72,12 +74,11 @@ sub search {
         if $cond->{search_value}->{last_name}->[0] eq 'NOT_SEARCH'
         && $cond->{search_value}->{first_name}->[0] eq 'NOT_SEARCH';
 
-    my $home = $self->app->home->to_string;
-
-    my $file_path = $home . '/lib/PersonSearcher/Model/ime-import.txt';
+    $cond->{search_value}->{file_path}
+        = $self->app->home->rel_file('lib/PersonSearcher/Model/ime-import.txt');
 
     $cond->{stash_value}
-        = get_name_for_file( $cond->{search_value}, $file_path );
+        = get_name_for_file( $cond->{search_value} );
 
     $self->stash( $cond->{stash_value} );
 

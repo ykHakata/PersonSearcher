@@ -13,8 +13,12 @@ our @EXPORT_OK = qw{get_name_for_file};
 
 sub get_name_for_file {
     my $cond      = shift;
-    my $file_path = shift;
 
+    my $last_name  = $cond->{last_name};
+    my $first_name = $cond->{first_name};
+    my $file_path  = $cond->{file_path};
+
+    die 'not cond value!' if !$last_name || !$first_name || !$file_path;
     my $res = +{
         last_names  => [],
         first_names => [],
