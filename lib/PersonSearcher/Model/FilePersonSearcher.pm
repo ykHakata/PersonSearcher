@@ -20,6 +20,10 @@ sub get_name_for_file {
         first_names => [],
     };
 
+    ### 引数の形式が変更になったので暫定的にここで変換
+    $cond->{last_name}  = $cond->{last_name}->[1];
+    $cond->{first_name} = $cond->{first_name}->[1];
+
     my $csv = Text::CSV->new(+{
         binary   => 1,
         sep_char => "\t",

@@ -11,8 +11,8 @@ sub search {
 
     my $cond = +{
         search_value => +{
-            last_name  => '',
-            first_name => '',
+            last_name  => [ SEARCH_ALL => '' ],
+            first_name => [ SEARCH_ALL => '' ],
         },
         stash_value => +{
             last_names  => [],
@@ -20,24 +20,57 @@ sub search {
         },
     };
 
+    # 例:
+    #     search_value => +{
+    #         last_name  => [ SEARCH_ALL => 'くさかべ' ],
+    #       # last_name  => [ NOT_SEARCH => '' ],
+    #       # last_name  => [ SEARCH_NAME_ONLY => '日下部' ],
+    #     },
+
     my $req    = $self->req;
     my $params = $req->params->to_hash;
 
     my $validator = FormValidator::Lite->new($req);
     $validator->check(
-        lastName  => [ 'HIRAGANA' ],
-        firstName => [ 'HIRAGANA' ],
+        lastName  => [qw/NOT_NULL HIRAGANA/],
+        firstName => [qw/NOT_NULL HIRAGANA/],
     );
+
+    $cond->{search_value}->{last_name}->[1]  = $params->{lastName};
+    $cond->{search_value}->{first_name}->[1] = $params->{firstName};
+
+    if ( $validator->has_error() ) {
+
+        my $errors = $validator->errors();
+
+        if ( exists $errors->{lastName} ) {
+            my ($error_key) = keys %{ $errors->{lastName} };
+
+            $cond->{search_value}->{last_name}
+                = $error_key eq 'NOT_NULL' ? [ NOT_SEARCH       => '' ]
+                : $error_key eq 'HIRAGANA' ? [ SEARCH_NAME_ONLY => '' ]
+                :                            [ SEARCH_ALL       => '' ];
+
+            $cond->{search_value}->{last_name}->[1] = $params->{lastName};
+        }
+
+        if ( exists $errors->{firstName} ) {
+            my ($error_key) = keys %{ $errors->{firstName} };
+
+            $cond->{search_value}->{first_name}
+                = $error_key eq 'NOT_NULL' ? [ NOT_SEARCH       => '' ]
+                : $error_key eq 'HIRAGANA' ? [ SEARCH_NAME_ONLY => '' ]
+                :                            [ SEARCH_ALL       => '' ];
+
+            $cond->{search_value}->{first_name}->[1] = $params->{firstName};
+        }
+    }
 
     $self->stash( $cond->{stash_value} );
 
     return $self->render( template => 'index' )
-        if !$params->{lastName} && !$params->{firstName};
-
-    return $self->render( template => 'index' ) if $validator->has_error();
-
-    $cond->{search_value}->{last_name}  = $params->{lastName};
-    $cond->{search_value}->{first_name} = $params->{firstName};
+        if $cond->{search_value}->{last_name}->[0] eq 'NOT_SEARCH'
+        && $cond->{search_value}->{first_name}->[0] eq 'NOT_SEARCH';
 
     my $home = $self->app->home->to_string;
 
