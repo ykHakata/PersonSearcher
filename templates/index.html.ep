@@ -42,9 +42,9 @@
                 </div>
                 <div id="lastNameOutputInput">
                     <ul>
-                        <li><%= $last_names->[0] %></li>
-                        <li><%= $last_names->[1] %></li>
-                        <li><%= $last_names->[2] %></li>
+                        % for my $last_name ( @{$last_names} ) {
+                            <li><%= $last_name %></li>
+                        % }
                     </ul>
                 </div>
             </div>
@@ -55,9 +55,9 @@
                 </div>
                 <div id="firstNameOutputInput">
                     <ul>
-                        <li><%= $first_names->[0] %></li>
-                        <li><%= $first_names->[1] %></li>
-                        <li><%= $first_names->[2] %></li>
+                        % for my $first_name ( @{$first_names} ) {
+                            <li><%= $first_name %></li>
+                        % }
                     </ul>
                 </div>
             </div>
