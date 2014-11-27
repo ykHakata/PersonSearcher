@@ -21,26 +21,13 @@ Readonly my $MODE      => 0;    # 'SEARCH_ALL'
 Readonly my $NAME      => 1;    # 'くさかべ'
 
 sub get_name_for_file {
-    my $cond      = shift;
-
-    die 'not cond value!'
-        if !$cond->{last_name} || !$cond->{first_name} || !$cond->{file_path};
-
-    my $res = +{
-        last_names  => [],
-        first_names => [],
-    };
-
-    # 二回ファイルを読み込んでいることになるので一回で済ませたい。
-    $res = _get_search_name($cond);
-
-    return $res;
-}
-
-sub _get_search_name {
     my $cond = shift;
 
-    my $file_path = $cond->{file_path};
+    my $last_name  = $cond->{last_name};
+    my $first_name = $cond->{first_name};
+    my $file_path  = $cond->{file_path};
+
+    die 'not cond value!' if !$last_name || !$first_name || !$file_path;
 
     my $name_mode = +{
         last_name  => '姓',
@@ -53,8 +40,8 @@ sub _get_search_name {
     };
 
     return $res
-        if $cond->{last_name}->[$MODE] eq 'NOT_SEARCH'
-        && $cond->{first_name}->[$MODE] eq 'NOT_SEARCH';
+        if $last_name->[$MODE] eq 'NOT_SEARCH'
+        && $first_name->[$MODE] eq 'NOT_SEARCH';
 
     open my $ime_file, '<:encoding(utf8)', $file_path
         or die "no file $OS_ERROR";
@@ -64,18 +51,18 @@ sub _get_search_name {
         sep_char => "\t",
     });
 
+    # 姓 名 の検索を同時に行う
     SEARCH_NAME:
     while ( my $row = $csv->getline($ime_file) ) {
 
         # タブ区切りの状態が正しくないときはスキップ
         next SEARCH_NAME if !$row->[$RUBY] || !$row->[$KANZI];
 
-        # 姓 名 の検索を同時に行う
         # 姓 読み方
-        if ( $cond->{last_name}->[$MODE] eq 'SEARCH_ALL' ) {
+        if ( $last_name->[$MODE] eq 'SEARCH_ALL' ) {
 
             # 読み方を検索
-            if (   $row->[$RUBY] eq $cond->{last_name}->[$NAME]
+            if (   $row->[$RUBY] eq $last_name->[$NAME]
                 && $row->[$NAME_MODE] eq $name_mode->{last_name} )
             {
 
@@ -86,12 +73,12 @@ sub _get_search_name {
         }
 
         # 姓 漢字表示
-        if (   $cond->{last_name}->[$MODE] eq 'SEARCH_ALL'
-            || $cond->{last_name}->[$MODE] eq 'SEARCH_NAME_ONLY' )
+        if (   $last_name->[$MODE] eq 'SEARCH_ALL'
+            || $last_name->[$MODE] eq 'SEARCH_NAME_ONLY' )
         {
 
             # 漢字表示を検索
-            if (   $row->[$KANZI] eq $cond->{last_name}->[$NAME]
+            if (   $row->[$KANZI] eq $last_name->[$NAME]
                 && $row->[$NAME_MODE] eq $name_mode->{last_name} )
             {
 
@@ -102,10 +89,10 @@ sub _get_search_name {
         }
 
         # 名 読み方
-        if ( $cond->{first_name}->[$MODE] eq 'SEARCH_ALL' ) {
+        if ( $first_name->[$MODE] eq 'SEARCH_ALL' ) {
 
             # 読み方を検索
-            if (   $row->[$RUBY] eq $cond->{first_name}->[$NAME]
+            if (   $row->[$RUBY] eq $first_name->[$NAME]
                 && $row->[$NAME_MODE] eq $name_mode->{first_name} )
             {
 
@@ -116,12 +103,12 @@ sub _get_search_name {
         }
 
         # 名 漢字表示
-        if (   $cond->{first_name}->[$MODE] eq 'SEARCH_ALL'
-            || $cond->{first_name}->[$MODE] eq 'SEARCH_NAME_ONLY' )
+        if (   $first_name->[$MODE] eq 'SEARCH_ALL'
+            || $first_name->[$MODE] eq 'SEARCH_NAME_ONLY' )
         {
 
             # 漢字表示を検索
-            if (   $row->[$KANZI] eq $cond->{first_name}->[$NAME]
+            if (   $row->[$KANZI] eq $first_name->[$NAME]
                 && $row->[$NAME_MODE] eq $name_mode->{first_name} )
             {
 
