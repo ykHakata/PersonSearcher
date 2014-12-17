@@ -4,11 +4,12 @@ use strict;
 use warnings;
 use utf8;
 use open OUT => qw/:utf8 :std/;
-use English;
+use English qw{ -no_match_vars };
 use Text::CSV;
 use Readonly;
 use Exporter 'import';
 our @EXPORT_OK = qw{get_name_for_file};
+use Carp;
 
 # use Smart::Comments;
 
@@ -27,7 +28,7 @@ sub get_name_for_file {
     my $first_name = $cond->{first_name};
     my $file_path  = $cond->{file_path};
 
-    die 'not cond value!' if !$last_name || !$first_name || !$file_path;
+    croak 'not cond value!' if !$last_name || !$first_name || !$file_path;
 
     my $name_mode = +{
         last_name  => '姓',
@@ -43,8 +44,8 @@ sub get_name_for_file {
         if $last_name->[$MODE] eq 'NOT_SEARCH'
         && $first_name->[$MODE] eq 'NOT_SEARCH';
 
-    open my $ime_file, '<:encoding(utf8)', $file_path
-        or die "no file $OS_ERROR";
+    open my $fh, '<:encoding(utf8)', $file_path
+        or croak "Can't open '$file_path': $OS_ERROR";
 
     my $csv = Text::CSV->new(+{
         binary   => 1,
@@ -53,7 +54,7 @@ sub get_name_for_file {
 
     # 姓 名 の検索を同時に行う
     SEARCH_NAME:
-    while ( my $row = $csv->getline($ime_file) ) {
+    while ( my $row = $csv->getline($fh) ) {
 
         # タブ区切りの状態が正しくないときはスキップ
         next SEARCH_NAME if !$row->[$RUBY] || !$row->[$KANZI];
@@ -118,7 +119,7 @@ sub get_name_for_file {
             }
         }
     }
-    close $ime_file;
+    close $fh or croak "Can't close '$file_path' after reading: $OS_ERROR";
 
     return $res;
 }
