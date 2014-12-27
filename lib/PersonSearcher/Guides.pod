@@ -1,0 +1,28 @@
+
+=encoding utf8
+
+=head1 NAME
+
+PersonSearcher::Guides - PersonSearcher guide to the galaxy
+
+人名検索をするWEBアプリケーションの案内
+
+=head1 REFERENCE
+
+This is the class hierarchy of the L<PersonSearcher> distribution.
+
+PersonSearcherアプリケーションのクラス階層
+
+=over 2
+
+=item * L<PersonSearcher>
+
+=over 2
+
+=item * L<PersonSearcher::Controller::WebSearch>
+
+=item * L<PersonSearcher::Model::FilePersonSearcher>
+
+=back
+
+=back
