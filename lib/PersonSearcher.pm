@@ -15,3 +15,27 @@ sub startup {
 }
 
 1;
+
+__END__
+
+=encoding utf8
+
+=head1 NAME
+
+PersonSearcher - 人名検索をするWEBアプリケーション
+
+=head1 DEPENDENCIES
+
+=over 2
+
+=item * L<Mojo::Base>
+
+=item * L<Mojolicious>
+
+=item * L<Mojolicious::Plugin::PODRenderer>
+
+=back
+
+=head1 SEE ALSO
+
+L<PersonSearcher::Guides>

@@ -125,3 +125,41 @@ sub get_name_for_file {
 }
 
 1;
+
+__END__
+
+=encoding utf8
+
+=head1 NAME
+
+PersonSearcher::Model::FilePersonSearcher - テキストファイルから名前を検索するAPI
+
+=head1 DEPENDENCIES
+
+=over 2
+
+=item * L<strict>
+
+=item * L<warnings>
+
+=item * L<utf8>
+
+=item * L<open>
+
+=item * L<English>
+
+=item * L<Text::CSV>
+
+=item * L<Readonly>
+
+=item * L<Exporter>
+
+=item * L<Carp>
+
+=item * L<Smart::Comments>
+
+=back
+
+=head1 SEE ALSO
+
+L<PersonSearcher::Guides>

@@ -22,12 +22,20 @@ sub search {
         },
     };
 
-    # 例:
-    #     search_value => +{
-    #         last_name  => [ SEARCH_ALL => 'くさかべ' ],
-    #       # last_name  => [ NOT_SEARCH => '' ],
-    #       # last_name  => [ SEARCH_NAME_ONLY => '日下部' ],
-    #     },
+=encoding utf8
+
+=begin comment
+
+    例:
+    search_value => +{
+        last_name  => [ SEARCH_ALL => 'くさかべ' ],
+      # last_name  => [ NOT_SEARCH => '' ],
+      # last_name  => [ SEARCH_NAME_ONLY => '日下部' ],
+    },
+
+=end comment
+
+=cut
 
     my $req    = $self->req;
     my $params = $req->params->to_hash;
@@ -86,3 +94,31 @@ sub search {
 }
 
 1;
+
+__END__
+
+=encoding utf8
+
+=head1 NAME
+
+PersonSearcher::Controller::WebSearch - リクエストから検索結果をレスポンスするweb用API
+
+=head1 DEPENDENCIES
+
+=over 2
+
+=item * L<Mojo::Base>
+
+=item * L<Mojolicious::Controller>
+
+=item * L<FormValidator::Lite>
+
+=item * L<PersonSearcher::Model::FilePersonSearcher>
+
+=item * L<Smart::Comments>
+
+=back
+
+=head1 SEE ALSO
+
+L<PersonSearcher::Guides>
